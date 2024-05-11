@@ -1,1 +1,3 @@
-fprintf("hello world")
+clear;
+close all;
+clc;
