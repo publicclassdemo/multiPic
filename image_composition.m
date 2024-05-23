@@ -1,5 +1,7 @@
+clc;clear ;close all;
 % 读取图片的信息
 info = imfinfo('sample_photos\sample4.jpg');
+
 
 % 获取图片的宽度和高度
 width = info.Width;
@@ -24,6 +26,35 @@ disp(['Width: ', num2str(width)]);
 disp(['Height: ', num2str(height)]);
 disp(['scale', num2str(scale)]);
 % disp(['Channels: ', num2str(channels)]);
+imshow("sample_photos\sample4.jpg")
+
+%% 
+img = imread("sample_photos\sample4.jpg");
+% 执行OCR
+results = ocr(img);
+
+% 提取识别的文本
+recognizedText = results.Text;
+
+% 显示识别的文本
+disp('Recognized Text:');
+disp(recognizedText);
+
+% 显示原始图片
+figure;
+imshow(img);
+title('Recognized Text');
+
+% 获取识别到的单词区域
+wordBBox = results.WordBoundingBoxes;
+
+% 在图片上绘制边界框和文字
+hold on;
+for i = 1:size(wordBBox, 1)
+    rectangle('Position', wordBBox(i, :), 'EdgeColor', 'red');
+    text(wordBBox(i, 1), wordBBox(i, 2) - 10, results.Words{i}, 'Color', 'red', 'FontSize', 12);
+end
+hold off;
 
 
 %% 
@@ -91,6 +122,30 @@ switch row
                 combinedImage(1:1500, 1500+1:1500+1500, :) = img2;
                 combinedImage(1500+1:1500+1500, 1:1500, :) = img3;
                 combinedImage(1500+1:1500+1500, 1500+1:1500+1500, :) = img4;
+            case 3
+                if n == 5
+                    combinedImage(1:1500, 1:1500, :) = img1;
+                    combinedImage(1:1500, 1500+1:1500+1500, :) = img2;
+                    combinedImage(1:1500, 1+3000:1500+3000, :) = img3;
+                    combinedImage(1+1500:1500+1500, 750+1:750+1500, :) = img4;
+                    combinedImage(1+1500:1500+1500, 1+750+1500:750+1500+1500, :) = img5;
+                else
+                    combinedImage(1:1500, 1:1500, :) = img1;
+                    combinedImage(1:1500, 1500+1:1500+1500, :) = img2;
+                    combinedImage(1:1500, 1+3000:1500+3000, :) = img3;
+                    combinedImage(1+1500:1500+1500, 1:1500, :) = img4;
+                    combinedImage(1+1500:1500+1500, 1+1500:1500+1500, :) = img5;
+                    combinedImage(1+1500:1500+1500, 1+1500+1500:1500+1500+1500, :) = img6;
+                end
+            case 4
+                    combinedImage(1:1500, 1:1500, :) = img1;
+                    combinedImage(1:1500, 1500+1:1500+1500, :) = img2;
+                    combinedImage(1:1500, 1+3000:1500+3000, :) = img3;
+                    combinedImage(1:1500, 1+3000+1500:1500+3000+1500, :) = img4;
+                    combinedImage(1+1500:1500+1500, 1:1500, :) = img5;
+                    combinedImage(1+1500:1500+1500, 1+1500:1500+1500, :) = img6;
+                    combinedImage(1+1500:1500+1500, 1+1500+1500:1500+1500+1500, :) = img7;
+                    combinedImage(1+1500:1500+1500, 1+1500+1500+1500:1500+1500+1500+1500, :) = img8;
         end
 end
 
