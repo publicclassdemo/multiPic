@@ -1,3 +1,2 @@
 clear;
 close all;
-clc;
